@@ -39,11 +39,11 @@ public class HGUAnalyzer {
 		
 		CommandLineParser parser = new DefaultParser();
 
-		String inputPath;
-		String resultPath;
-		String startYear;
-		String endYear;
-		String courseCode;
+		String inputPath = null;
+		String resultPath = null;
+		String startYear = null;
+		String endYear = null;
+		String courseCode = null;
 		int analysisType = 0;
 		
 		Options options = createOptions();
@@ -70,7 +70,7 @@ public class HGUAnalyzer {
 			System.exit(0);
 		}
 		
-		CSVParser csvParser;
+		CSVParser csvParser = null;
 		try {
 		Reader reader = Files.newBufferedReader(Paths.get(inputPath));
         csvParser = new CSVParser(reader, CSVFormat.DEFAULT
