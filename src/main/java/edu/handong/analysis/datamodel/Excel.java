@@ -29,8 +29,8 @@ public class Excel {
 		try {
 		    Workbook wb = WorkbookFactory.create(in);
 		    Sheet sheet = wb.getSheetAt(0);
-    		DataFormatter formatter = new DataFormatter();
-    		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.M.d");
+    		    DataFormatter formatter = new DataFormatter();
+    		    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.M.d");
 		
 		    Iterator<Row> it = sheet.rowIterator();
 		    boolean headerJump = false;
@@ -42,7 +42,6 @@ public class Excel {
 		    		headerJump = true;
 		    		continue;
 		    	}
-		    	
 		    	String rowString = "";
 		    	
 		    	for(int cn=0; cn<row.getLastCellNum(); cn++) {
@@ -50,19 +49,18 @@ public class Excel {
 		    		String value = "";
 		    		
 		    		if (cell != null) {
-						if (cell.getCellType() == CellType.NUMERIC) {
-							if (DateUtil.isCellDateFormatted(cell))
-								value += dateFormat.format(cell.getDateCellValue());
-							else {
-								value += formatter.formatCellValue(cell);
-								if (Double.parseDouble(value) > 1900.0)	{
-									value = dateFormat.format(cell.getDateCellValue());
-								}
-							}
-						}
+					if (cell.getCellType() == CellType.NUMERIC) {
+						if (DateUtil.isCellDateFormatted(cell))
+							value += dateFormat.format(cell.getDateCellValue());
 						else {
-						    value += formatter.formatCellValue(cell);
+							value += formatter.formatCellValue(cell);
+							if (Double.parseDouble(value) > 1900.0)	
+								value = dateFormat.format(cell.getDateCellValue());
 						}
+					}
+					else {
+						value += formatter.formatCellValue(cell);
+					}
 			            value = value.replaceAll("\n", "");
 			            value = value.replaceAll("\"", "\"\"");
 			            value = value.replaceAll("\'", "\'\'");
@@ -80,8 +78,7 @@ public class Excel {
 		}
 	}
 	
-	public ArrayList<String> getOriginData()
-	{
+	public ArrayList<String> getOriginData(){
 		return originData;
 	}
 }
